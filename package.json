@@ -1,0 +1,25 @@
+{
+  "name": "poll-up",
+  "version": "1.0.0",
+  "description": "a voting app",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "vote",
+    "app"
+  ],
+  "author": "Aos",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "dotenv": "^4.0.0",
+    "express": "^4.15.3",
+    "flash": "^1.1.0",
+    "mongoose": "^4.10.6",
+    "path": "^0.12.7",
+    "pug": "^2.0.0-rc.2"
+  }
+}

@@ -1,0 +1,18 @@
+extends layout
+
+block content
+  form(action="/register" method="POST")
+    h3 Register
+    .form-group
+      label(for="name") Username
+      input.form-control(type="text" name="name" required)
+    .form-group
+      label(for="email") Email Address
+      input.form-control(type="email" name="email" required)
+    .form-group
+      label(for="password") Password
+      input.form-control(type="password" name="password" required)
+    .form-group
+      label(for="password-confirm") Confirm Password
+      input.form-control(type="password" name="password-confirm" required)
+    input.btn.btn-default(type="submit" value="Register")

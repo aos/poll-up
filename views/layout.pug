@@ -22,11 +22,11 @@ html
               span.icon-bar
               span.icon-bar
               span.icon-bar
-            a.navbar-brand(href="#") Poll-Up
+            a.navbar-brand(href="/") Poll-Up
           //- Collect nav links
           #navbar-collapse-1.collapse.navbar-collapse
             ul.nav.navbar-nav
-              li.active
+              li(class=(currentPath.startsWith('/polls') ? 'active' : ''))
                 a(href="#") All Polls
             ul.nav.navbar-nav.navbar-right
               if user
@@ -36,9 +36,10 @@ html
                 li
                   a(href="#") Logout
               else
-                li
-                  a(href="#") Register
-                li
-                  a(href="#") Login
+                li(class=(currentPath.startsWith('/register') ? 'active' : '')) 
+                  a(href="register") Register
+                li(class=(currentPath.startsWith('/login') ? 'active' : ''))
+                  a(href="login") Login
 
     block content
+      h2 Hi there!

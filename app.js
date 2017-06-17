@@ -1,8 +1,11 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const flash = require('flash');
 const path = require('path');
+const flash = require('connect-flash');
+const expressValidator = require('express-validator');
+const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
 const routes = require('./routes/index');
 require('dotenv').config({path: 'variables.env'});
 
@@ -24,13 +27,27 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
+// Validate data passed on `req.body`
+app.use(expressValidator());
+
+// Allows session storage
+app.use(session({
+  secret: process.env.SECRET,
+  // Resaves a session on every connection
+  resave: false,
+  // If true, saves new but not modified sessions
+  saveUninitialized: false,
+  // Stores session on a mongoose connection
+  store: new MongoStore({mongooseConnection: mongoose.connection})
+}))
+
 // Flash messages
-// app.use(flash());
+app.use(flash());
 
 app.use((req, res, next) => {
   // res.locals.h = helpers;
-  // res.locals.flashes = req.flash;
-  // res.locals.user = req.user || null;
+  res.locals.flashes = req.flash;
+  res.locals.user = req.user || null;
   res.locals.currentPath = req.path;
   next();
 });

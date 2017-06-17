@@ -7,13 +7,13 @@ const UserSchema = new Schema({
     type: String,
     lowercase: true,
     unique: true,
-    trime: true,
+    trim: true,
     required: 'Please supply an email address'
   },
   name: {
     type: String,
     required: 'Please supply a name',
-    trime: true
+    trim: true
   },
   resetPasswordToken: String,
   resetPasswordExpires: Date

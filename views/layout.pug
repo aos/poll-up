@@ -12,34 +12,45 @@ html
 
   body
     block header
-      //- Navbar
-      nav.navbar.navbar-inverse
-        .container-fluid
-          //- Brand and toggle grouping
-          .navbar-header
-            button.navbar-toggle.collapsed(type="button", data-toggle="collapse" data-target="#navbar-collapse-1")
-              span.sr-only Toggle navigation
-              span.icon-bar
-              span.icon-bar
-              span.icon-bar
-            a.navbar-brand(href="/") Poll-Up
-          //- Collect nav links
-          #navbar-collapse-1.collapse.navbar-collapse
-            ul.nav.navbar-nav
-              li(class=(currentPath.startsWith('/polls') ? 'active' : ''))
-                a(href="#") All Polls
-            ul.nav.navbar-nav.navbar-right
-              if user
-                li
-                  p.navbar-text Hello, 
-                    a.navbar-link(href="#") #{user.username}
-                li
-                  a(href="#") Logout
-              else
-                li(class=(currentPath.startsWith('/register') ? 'active' : '')) 
-                  a(href="register") Register
-                li(class=(currentPath.startsWith('/login') ? 'active' : ''))
-                  a(href="login") Login
-
-    block content
-      h2 Hi there!
+      header
+        //- Navbar
+        nav.navbar.navbar-inverse
+          .container
+            //- Brand and toggle grouping
+            .navbar-header
+              button.navbar-toggle.collapsed(type="button", data-toggle="collapse" data-target="#navbar-collapse-1")
+                span.sr-only Toggle navigation
+                span.icon-bar
+                span.icon-bar
+                span.icon-bar
+              a.navbar-brand(href="/") Poll-Up
+            //- Collect nav links
+            #navbar-collapse-1.collapse.navbar-collapse
+              ul.nav.navbar-nav
+                li(class=(currentPath.startsWith('/polls') ? 'active' : ''))
+                  a(href="#") All Polls
+              ul.nav.navbar-nav.navbar-right
+                if user
+                  li
+                    p.navbar-text Hello, 
+                      a.navbar-link(href="#") #{user.username}
+                  li
+                    a(href="#") Logout
+                else
+                  li(class=(currentPath.startsWith('/register') ? 'active' : '')) 
+                    a(href="register") Register
+                  li(class=(currentPath.startsWith('/login') ? 'active' : ''))
+                    a(href="login") Login
+    block messages
+      if flashes
+        .container
+          - const categories = Object.keys(flashes);
+          each category in categories
+            each message in flashes[category]
+              .alert.alert-warning.alert-dismissible(role="alert")
+                button.close(type="button" data-dismiss="alert") &times;
+                p!= message
+                
+    .container
+      block content
+        h2 Hi there!

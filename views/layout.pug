@@ -33,9 +33,9 @@ html
                 if user
                   li
                     p.navbar-text Hello, 
-                      a.navbar-link(href="#") #{user.username}
+                      a.navbar-link(href="#") #{user.name}
                   li
-                    a(href="#") Logout
+                    a(href="logout") Logout
                 else
                   li(class=(currentPath.startsWith('/register') ? 'active' : '')) 
                     a(href="register") Register
@@ -47,10 +47,10 @@ html
           - const categories = Object.keys(flashes);
           each category in categories
             each message in flashes[category]
-              .alert.alert-warning.alert-dismissible(role="alert")
+              .alert(class=`alert alert-${category} alert-dismissible` role="alert")
                 button.close(type="button" data-dismiss="alert") &times;
                 p!= message
-                
+
     .container
       block content
         h2 Hi there!

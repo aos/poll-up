@@ -1,7 +1,6 @@
 extends layout
 
 block content
-  .container
     form(action="/register" method="POST")
       h3= title
       .form-group
@@ -16,4 +15,4 @@ block content
       .form-group
         label(for="password-confirm") Confirm Password
         input.form-control(type="password" name="password-confirm" required)
-      input.btn.btn-default(type="submit" value="Register")
+      input.btn.btn-success(type="submit" value="Register")

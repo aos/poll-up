@@ -6,9 +6,10 @@ html
     meta(http-equiv="X-UA-Compatible", content="ie=edge")
     script(rel="text/javascript", src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js")
     script(rel="text/javascript", src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js")
+    script(rel="text/javascript", src="js/scripts.js")
     link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css")
-    link(rel="stylesheet", href="style.css")
-    title= `${title || 'Poll-Up!'}`
+    link(rel="stylesheet", href="css/style.css")
+    title= `${title || 'Poll-Up'}`
 
   body
     block header
@@ -29,6 +30,8 @@ html
               ul.nav.navbar-nav
                 li(class=(currentPath.startsWith('/polls') ? 'active' : ''))
                   a(href="#") All Polls
+                li(class=(currentPath.startsWith('/new') ? 'active' : '' ))
+                  a(href="new") New Poll
               ul.nav.navbar-nav.navbar-right
                 if user
                   li

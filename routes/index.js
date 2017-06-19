@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const userController = require('../controllers/userController');
 const authController = require('../controllers/authController');
+const pollController = require('../controllers/pollController');
 const { catchErrors } = require('../handlers/errorHandlers');
 
 router.get('/', (req, res) => {
@@ -22,5 +23,8 @@ router.post('/login', authController.login);
 
 // Logout a user
 router.get('/logout', authController.logout);
+
+// Create a new poll
+router.get('/new', pollController.newPoll);
 
 module.exports = router;

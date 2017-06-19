@@ -29,7 +29,7 @@ html
             #navbar-collapse-1.collapse.navbar-collapse
               ul.nav.navbar-nav
                 li(class=(currentPath.startsWith('/polls') ? 'active' : ''))
-                  a(href="#") All Polls
+                  a(href="/all") All Polls
                 if user
                   li(class=(currentPath.startsWith('/new') ? 'active' : '' ))
                     a(href="/new") New Poll

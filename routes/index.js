@@ -25,12 +25,21 @@ router.post('/login', authController.login);
 router.get('/logout', authController.logout);
 
 // User homepage
-router.get('/user/:user', (req, res) => {
-  res.render(`userHome`, {user: req.user})
-})
+router.get('/user/:user', 
+  catchErrors(pollController.showUserPolls)
+);
 
 // Create a new poll
 router.get('/new', pollController.newPoll);
-router.post('/new', catchErrors(pollController.createPoll));
+router.post('/new', 
+  catchErrors(pollController.createPoll), 
+  catchErrors(pollController.showPoll)
+);
+
+// View poll
+router.get('/poll/:id?', catchErrors(pollController.showPoll));
+
+// View ALL the polls
+router.get('/all', catchErrors(pollController.showAll));
 
 module.exports = router;

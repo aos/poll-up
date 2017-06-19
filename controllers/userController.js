@@ -59,3 +59,9 @@ exports.register = async (req, res, next) => {
   await registerWithPromise(user, req.body.password);
   next();
 }
+
+exports.homePage = async (req, res, next) => {
+  const user = await User.findOne({name: req.params.user})
+  res.locals.user = user;
+  next();
+}

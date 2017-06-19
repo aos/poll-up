@@ -2,3 +2,11 @@ extends layout
 
 block content
   h3 Hello #{user.name}!
+
+  if polls.length > 0
+    h4 Your polls:
+    each poll in polls
+      a(href=`/poll/${poll._id}`)
+        p= poll.question
+  else
+    p You have no polls. Create a new one by clicking the link above!

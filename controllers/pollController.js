@@ -26,5 +26,25 @@ exports.createPoll = async (req, res, next) => {
     }
   })
   await poll.save();
-  res.json(poll);
+  res.redirect(`/poll/${poll._id}`)
+}
+
+exports.showPoll = async (req, res, next) => {
+  if (res.locals.poll) {
+    console.log(res.locals.poll)
+    return res.json(res.locals.poll);
+  }
+  const poll = await Poll.findOne({_id: req.params.id});
+  return res.render('viewPoll', {poll});
+}
+
+exports.showAll = async (req, res, next) => {
+  const polls = await Poll.find();
+  res.locals.polls = polls;
+  res.render('all', {polls});
+}
+
+exports.showUserPolls = async (req, res, next) => {
+  const polls = await Poll.find({author: req.params.user})
+  res.render('userHome', {polls});
 }

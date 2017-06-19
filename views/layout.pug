@@ -30,20 +30,21 @@ html
               ul.nav.navbar-nav
                 li(class=(currentPath.startsWith('/polls') ? 'active' : ''))
                   a(href="#") All Polls
-                li(class=(currentPath.startsWith('/new') ? 'active' : '' ))
-                  a(href="new") New Poll
+                if user
+                  li(class=(currentPath.startsWith('/new') ? 'active' : '' ))
+                    a(href="/new") New Poll
               ul.nav.navbar-nav.navbar-right
                 if user
                   li
                     p.navbar-text Hello, 
-                      a.navbar-link(href="#") #{user.name}
+                      a.navbar-link(href=`/user/${user.name}/`) #{user.name}
                   li
-                    a(href="logout") Logout
+                    a(href="/logout") Logout
                 else
                   li(class=(currentPath.startsWith('/register') ? 'active' : '')) 
-                    a(href="register") Register
+                    a(href="/register") Register
                   li(class=(currentPath.startsWith('/login') ? 'active' : ''))
-                    a(href="login") Login
+                    a(href="/login") Login
     block messages
       if flashes
         .container

@@ -4,6 +4,7 @@
   border-radius: 0;
 }
 
-.poll-form {
-  width: 30%;
+form {
+  min-width: 300px;
+  width: 40%;
 }

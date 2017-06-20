@@ -36,8 +36,9 @@ router.post('/new',
   catchErrors(pollController.showPoll)
 );
 
-// View poll
-router.get('/poll/:id?', catchErrors(pollController.showPoll));
+// View/vote on poll
+router.get('/poll/:id', catchErrors(pollController.showPoll));
+router.post('/poll/:id/vote', pollController.vote);
 
 // View ALL the polls
 router.get('/all', catchErrors(pollController.showAll));

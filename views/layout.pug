@@ -6,10 +6,11 @@ html
     meta(http-equiv="X-UA-Compatible", content="ie=edge")
     script(rel="text/javascript", src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js")
     script(rel="text/javascript", src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js")
-    script(rel="text/javascript", src="js/scripts.js")
     link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css")
-    link(rel="stylesheet", href="css/style.css")
     title= `${title || 'Poll-Up'}`
+    block custom
+      script(rel="text/javascript", src="/js/scripts.js")
+      link(rel="stylesheet", href="/css/style.css")
 
   body
     block header
@@ -28,7 +29,7 @@ html
             //- Collect nav links
             #navbar-collapse-1.collapse.navbar-collapse
               ul.nav.navbar-nav
-                li(class=(currentPath.startsWith('/polls') ? 'active' : ''))
+                li(class=(currentPath.startsWith('/all') ? 'active' : ''))
                   a(href="/all") All Polls
                 if user
                   li(class=(currentPath.startsWith('/new') ? 'active' : '' ))

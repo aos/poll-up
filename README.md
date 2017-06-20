@@ -7,5 +7,6 @@ This project is currently under construction.
 #### TODO:
 - [x] User authentication (register, login)
 - [x] Generate polls and save to database
-- [ ] Display polls
+- [x] Display polls
+- [ ] Vote on polls
 - [ ] Graph polls

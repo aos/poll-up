@@ -23,11 +23,11 @@ mongoose.connection.on('error', (err) => {
 });
 
 // Set view engine
-app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
+app.set('views', path.join(__dirname, '/views'));
 
 // Static files and body parser
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, '/public')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 

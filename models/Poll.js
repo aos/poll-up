@@ -1,19 +1,23 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+// Schema for each voter
+const voterSchema = new Schema({ ip: String })
+
 // Schema for each poll choice
 const ChoiceSchema = new Schema({
-  text: String,
-  votes: {
-    type: Number,
-    default: 0
-  }
+  text: {
+    type: String,
+    trim: true
+  },
+  votes: [voterSchema]
 });
 
 // Schema for each poll, containing sub doc with choices
 const PollSchema = new Schema({
   question: {
     type: String,
+    trim: true,
     required: 'Please supply a title'
   },
   author: String,

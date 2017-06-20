@@ -1,11 +1,11 @@
 mixin pollVote()
-  form.poll-vote(action="/vote" method="POST")
+  form.poll-vote(action=`/poll/${poll._id}/vote` method="POST")
     .form-group
       label(for="question") Question
       p.form-control-static #{poll.question}
-    each choice in poll.choices
+    each choice, index in poll.choices
       .form-group.radio
         label
-          input(type="radio" name="optionsRadios" value=`option`)
+          input(type="radio" name="optionsRadios" value=`${index}`)
           | #{choice.text}
     input.btn.btn-success(type="submit" value="Vote")

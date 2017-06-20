@@ -40,6 +40,7 @@ exports.showPoll = async (req, res, next) => {
 
 exports.showAll = async (req, res, next) => {
   const polls = await Poll.find();
+  // if (req.user &&)
   res.locals.polls = polls;
   res.render('all', {polls});
 }
@@ -47,4 +48,12 @@ exports.showAll = async (req, res, next) => {
 exports.showUserPolls = async (req, res, next) => {
   const polls = await Poll.find({author: req.params.user})
   res.render('userHome', {polls});
+}
+
+exports.vote = async (req, res, next) => {
+  let choice = req.body.optionsRadios;
+  const poll = await Poll.findOne({_id: req.params.id})
+  poll.choices[choice].votes.push({ip: req.ip.replace(/^:[a-fA-F0-9]*:*[a-fA-F0-9]*:/g, "")})
+  await poll.save();
+  res.json(poll);
 }

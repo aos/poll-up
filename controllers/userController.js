@@ -61,7 +61,5 @@ exports.register = async (req, res, next) => {
 }
 
 exports.homePage = async (req, res, next) => {
-  const user = await User.findOne({name: req.params.user})
-  res.locals.user = user;
-  next();
+  const user = User.find({name: req.params.user})
 }

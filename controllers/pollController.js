@@ -51,9 +51,18 @@ exports.showUserPolls = async (req, res, next) => {
 }
 
 exports.vote = async (req, res, next) => {
+  // Pull choice
   let choice = req.body.optionsRadios;
-  const poll = await Poll.findOne({_id: req.params.id})
-  poll.choices[choice].votes.push({ip: req.ip.replace(/^:[a-fA-F0-9]*:*[a-fA-F0-9]*:/g, "")})
+  // Check if user voted already
+  const userVoted = await Poll.findOne({_id: req.params.id, 'choices.votes.ip': req.ip });
+  if (userVoted) {
+    req.flash('warning', 'You already voted!');
+    return res.redirect('/');
+  }
+  // Cast vote
+  const poll = await Poll.findOne({_id: req.params.id});
+  poll.choices[choice].votes.push({ip: req.ip});
   await poll.save();
-  res.json(poll);
+  req.flash('success', 'Thanks for voting!');
+  res.redirect('/all');
 }

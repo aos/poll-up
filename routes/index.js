@@ -38,12 +38,15 @@ router.post('/new',
 
 // View/vote on poll
 router.get('/poll/:id', catchErrors(pollController.showPoll));
-router.post('/poll/:id/vote', pollController.vote);
+router.post('/poll/:id/vote', 
+  catchErrors(pollController.vote),
+  pollController.showResult
+);
 
 // View ALL the polls
 router.get('/all', catchErrors(pollController.showAll));
 
 // View poll results
-router.get('/result', pollController.showResult);
+router.get('/poll/:id/result', catchErrors(pollController.showResult));
 
 module.exports = router;

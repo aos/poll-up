@@ -5,33 +5,60 @@ block scripts
 
 block content
   .chart-container
-    canvas(id="chart" width="500" height="500")
+    canvas(id="chart" width="350" height="350")
   script.
-    const labels = !{labels};
-    const poll = !{poll};
-    const ctx = document.getElementById('chart').getContext('2d');
-    const chart = new Chart(ctx, {
-      // The type of chart we want to create
-      type: 'pie',
-      // The data for our dataset
-      data: {
-          labels: labels,
-          datasets: [{
-            backgroundColor: ['rgb(255, 99, 132)','rgb(100, 99, 100)','rgb(255, 255, 132)'],
-            borderColor: 'rgb(0, 0, 0)',
-            data: [5, 1, 2, 3],
-          }]
-      },
-      // Configuration options go here
-      options: {
-        title: {
-          display: true,
-          text: poll.question
-        },
-        maintainAspectRatio: false,
-        responsive: false,
-        legend: {
-          position: 'right',
-        },
+    $(window).on('load', function() {
+      const poll = !{poll};
+      const backgroundColors = (n) => {
+        const randomColors = () => {
+          let r = Math.floor(Math.random() * 256);
+          let g = Math.floor(Math.random() * 256);
+          let b = Math.floor(Math.random() * 256);
+          let string = `rgb(${r}, ${g}, ${b})`;
+          return string;
+        };
+        let array = [];
+        for (let i = 0; i < n; i++) {
+          array.push(randomColors());
+        };
+        return array;
       }
+      const labelMaker = (choices) => {
+        let labels = choices.map((o) => o.text);
+        return labels;
+      }
+      const dataMaker = (choices) => {
+        let dataArr = [];
+        choices.forEach((o) => {
+          dataArr.push(o.votes.length);
+          })
+          return dataArr;
+      }
+      const ctx = document.getElementById('chart').getContext('2d');
+      const chart = new Chart(ctx, {
+        // The type of chart we want to create
+        type: 'pie',
+        // The data for our dataset
+        data: {
+            labels: labelMaker(poll.choices),
+            datasets: [{
+              backgroundColor: backgroundColors(poll.choices.length),
+              borderColor: 'rgba(0, 0, 0, 0.5)',
+              data: dataMaker(poll.choices),
+            }]
+        },
+        // Configuration options go here
+        options: {
+          title: {
+            display: true,
+            fontSize: 20,
+            text: poll.question
+          },
+          maintainAspectRatio: false,
+          responsive: false,
+          legend: {
+            position: 'bottom',
+          },
+        }
+      });
     });

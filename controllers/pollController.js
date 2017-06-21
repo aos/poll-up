@@ -32,11 +32,14 @@ exports.createPoll = async (req, res, next) => {
 }
 
 exports.showPoll = async (req, res, next) => {
-  if (res.locals.poll) {
-    console.log(res.locals.poll)
-    return res.json(res.locals.poll);
+  const userVotedPromise = Poll.findOne({_id: req.params.id, 'choices.votes.ip': req.ip });
+  const pollPromise = Poll.findOne({_id: req.params.id});
+  const [poll, userVoted] = await Promise.all([pollPromise, userVotedPromise]);
+
+  if (userVoted) {
+    req.flash('warning', 'You already voted!');
+    return res.render('result', {poll: JSON.stringify(poll)});
   }
-  const poll = await Poll.findOne({_id: req.params.id});
   return res.render('viewPoll', {poll});
 }
 
@@ -59,22 +62,24 @@ exports.vote = async (req, res, next) => {
   const pollPromise = Poll.findOne({_id: req.params.id});
   const [userVoted, poll] = await Promise.all([userVotedPromise, pollPromise]);
 
-  let labels = res.locals.h.mapWith(poll.choices, (o) => o.text);
-
+  res.locals.poll = poll;
   // Check if user has voted already
   if (userVoted) {
-    // req.flash('warning', 'You already voted!');
-    return res.render('result', {poll: JSON.stringify(poll), labels: JSON.stringify(labels)});
+    req.flash('warning', 'You already voted!');
+    return next();
   }
-
   // Cast vote
   poll.choices[choice].votes.push({ip: req.ip});
   await poll.save();
-  console.log('vote');
-  // req.flash('success', 'Thanks for voting!');
-  return res.render('result', {poll, labels});
+  req.flash('success', 'Thanks for voting!');
+  return next();
 }
 
 exports.showResult = async (req, res, next) => {
-  res.render('result');
+  if (res.locals.poll) {
+    let poll = res.locals.poll;
+    return res.render('result', {poll: JSON.stringify(poll)});
+  }
+  let poll = await Poll.findOne({_id: req.params.id});
+  return res.render('result', {poll: JSON.stringify(poll)});
 }

@@ -9,5 +9,7 @@ This project is currently under construction.
 - [x] Generate polls and save to database
 - [x] Display polls to users
 - [x] Vote on polls -- (IP-restricted)
-- [ ] Graph poll results
+- [x] Graph poll results
+- [ ] Password reset (email or token-based?)
+- [ ] Homepage
 - [ ] Clean up layout

@@ -9,7 +9,7 @@ form {
   border-radius: 0;
 }
 
-.chart-container {
-  width: 40%;
+.graph-container {
   margin: 0 auto;
+  text-align: center;
 }

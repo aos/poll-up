@@ -38,14 +38,13 @@ exports.showPoll = async (req, res, next) => {
 
   if (userVoted) {
     req.flash('warning', 'You already voted!');
-    return res.render('result', {poll: JSON.stringify(poll)});
+    return res.render('result', {poll: JSON.stringify(poll), flashes: req.flash()});
   }
   return res.render('viewPoll', {poll});
 }
 
 exports.showAll = async (req, res, next) => {
   const polls = await Poll.find();
-  // if (req.user &&)
   res.locals.polls = polls;
   res.render('all', {polls});
 }
@@ -78,8 +77,8 @@ exports.vote = async (req, res, next) => {
 exports.showResult = async (req, res, next) => {
   if (res.locals.poll) {
     let poll = res.locals.poll;
-    return res.render('result', {poll: JSON.stringify(poll)});
+    return res.render('result', {poll: JSON.stringify(poll), flashes: req.flash()});
   }
   let poll = await Poll.findOne({_id: req.params.id});
-  return res.render('result', {poll: JSON.stringify(poll)});
+  return res.render('result', {poll: JSON.stringify(poll), flashes: req.flash()});
 }

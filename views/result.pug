@@ -4,8 +4,14 @@ block scripts
   script(src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js" rel="text/javascript")
 
 block content
-  .chart-container
-    canvas(id="chart" width="350" height="350")
+  - let pollParsed = JSON.parse(poll)
+  .row.graph-container
+    .col-sm-6
+      canvas(id="chart" width="350" height="350")
+    .col-sm-6
+      h4 Results
+      each choice in pollParsed.choices
+        p #{choice.text}: #{choice.votes.length}
   script.
     $(window).on('load', function() {
       const poll = !{poll};
@@ -52,13 +58,14 @@ block content
           title: {
             display: true,
             fontSize: 20,
+            fontColor: '#333',
             text: poll.question
           },
           maintainAspectRatio: false,
           responsive: false,
           legend: {
             position: 'bottom',
-          },
+          }
         }
       });
     });

@@ -26,6 +26,8 @@ exports.createPoll = async (req, res, next) => {
     }
   })
   await poll.save();
+  const pollURL = `${req.protocol}://${req.hostname}/poll/${poll._id}`
+  req.flash('success', `Your poll was created! Link: ${pollURL}`);
   res.redirect(`/poll/${poll._id}`)
 }
 
@@ -53,16 +55,26 @@ exports.showUserPolls = async (req, res, next) => {
 exports.vote = async (req, res, next) => {
   // Pull choice
   let choice = req.body.optionsRadios;
-  // Check if user voted already
-  const userVoted = await Poll.findOne({_id: req.params.id, 'choices.votes.ip': req.ip });
+  const userVotedPromise = Poll.findOne({_id: req.params.id, 'choices.votes.ip': req.ip });
+  const pollPromise = Poll.findOne({_id: req.params.id});
+  const [userVoted, poll] = await Promise.all([userVotedPromise, pollPromise]);
+
+  let labels = res.locals.h.mapWith(poll.choices, (o) => o.text);
+
+  // Check if user has voted already
   if (userVoted) {
-    req.flash('warning', 'You already voted!');
-    return res.redirect('/');
+    // req.flash('warning', 'You already voted!');
+    return res.render('result', {poll: JSON.stringify(poll), labels: JSON.stringify(labels)});
   }
+
   // Cast vote
-  const poll = await Poll.findOne({_id: req.params.id});
   poll.choices[choice].votes.push({ip: req.ip});
   await poll.save();
-  req.flash('success', 'Thanks for voting!');
-  res.redirect('/all');
+  console.log('vote');
+  // req.flash('success', 'Thanks for voting!');
+  return res.render('result', {poll, labels});
+}
+
+exports.showResult = async (req, res, next) => {
+  res.render('result');
 }

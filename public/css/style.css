@@ -1,10 +1,15 @@
+form {
+  min-width: 300px;
+  width: 40%;
+}
+
 .navbar {
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
   border-radius: 0;
 }
 
-form {
-  min-width: 300px;
+.chart-container {
   width: 40%;
+  margin: 0 auto;
 }

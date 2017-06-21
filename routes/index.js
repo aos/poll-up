@@ -43,4 +43,7 @@ router.post('/poll/:id/vote', pollController.vote);
 // View ALL the polls
 router.get('/all', catchErrors(pollController.showAll));
 
+// View poll results
+router.get('/result', pollController.showResult);
+
 module.exports = router;

@@ -3,5 +3,7 @@ extends layout
 include mixins/_pollForm
 
 block content
-  h3= title
-  +pollForm()
+  .row
+    .col-sm-12
+      h3= title
+      +pollForm()

@@ -11,5 +11,17 @@ form {
 
 .graph-container {
   margin: 0 auto;
+  text-align: left;
+}
+
+.results {
+  padding-left: 15px;
+}
+
+.graphs {
+  margin-bottom: 30px;
+}
+
+.jumbotron {
   text-align: center;
 }

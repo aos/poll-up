@@ -1,8 +1,10 @@
 extends layout
 
 block content
-  h2 All the polls!
+  .row
+    .col-sm-12.all-polls
+      h2 All the polls!
 
-  each poll in polls
-    a(href=`/poll/${poll._id}`)
-        p= poll.question
+      each poll in polls
+        a(href=`/poll/${poll._id}`)
+            p= poll.question

@@ -6,12 +6,17 @@ block scripts
 block content
   - let pollParsed = JSON.parse(poll)
   .row.graph-container
-    .col-sm-6
+    .col-sm-6.graphs
       canvas(id="chart" width="350" height="350")
-    .col-sm-6
-      h4 Results
+    .col-sm-6.results
+      h4(style="margin-bottom: 20px;") Results
+      - let total = 0
       each choice in pollParsed.choices
-        p #{choice.text}: #{choice.votes.length}
+        p #{choice.text}: 
+          b #{choice.votes.length}
+          - total += choice.votes.length
+      p(style="margin-top: 20px;") Total votes: 
+        b #{total}
   script.
     $(window).on('load', function() {
       const poll = !{poll};
@@ -61,7 +66,6 @@ block content
             fontColor: '#333',
             text: poll.question
           },
-          maintainAspectRatio: false,
           responsive: false,
           legend: {
             position: 'bottom',

@@ -58,4 +58,16 @@ html
 
     .container
       block content
-        h2 Hi there!
+        .jumbotron
+          h2 Welcome to Poll-Up!
+          p A minimalist responsive polling app.
+          if user
+            p
+              a.btn.btn-success(href="/new") Create a poll
+              span 
+              a.btn.btn-primary(href="/all") View all polls
+          else
+            p
+              a.btn.btn-success(href="/register") Register
+              span 
+              a.btn.btn-primary(href="/login") Login

@@ -4,7 +4,16 @@ block content
   .row
     .col-sm-12.all-polls
       h2 All the polls!
-
-      each poll in polls
-        a(href=`/poll/${poll._id}`)
-            p= poll.question
+      br
+      table.table.table-hover.table-condensed
+        thead
+          th Poll
+          th Date
+        tbody
+          each poll in polls
+            - let date = moment(poll.date).fromNow()
+            tr.clickable-row(data-href=`/poll/${poll._id}`)
+              td(style='color: #337ab7') #{poll.question}
+              td Posted: #{date}
+          else
+            p There are no polls!

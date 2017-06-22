@@ -2,11 +2,17 @@ extends layout
 
 block content
   h3 Hello #{user.name}!
-
-  if polls.length > 0
-    h4 Your polls:
-    each poll in polls
-      a(href=`/poll/${poll._id}`)
-        p= poll.question
-  else
-    p You have no polls. Create a new one by clicking the link above!
+  h5 Your polls:
+  br
+  table.table.table-hover.table-condensed
+    thead
+      th Poll
+      th Date
+    tbody
+      each poll in polls
+        - let date = moment(poll.date).fromNow()
+        tr.clickable-row(data-href=`/poll/${poll._id}`)
+          td(style='color: #337ab7') #{poll.question}
+          td Posted: #{date}
+      else
+        p There are no polls!

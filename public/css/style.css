@@ -15,7 +15,7 @@ form {
 }
 
 .results {
-  padding-left: 15px;
+  padding-left: 60px;
 }
 
 .graphs {
@@ -24,4 +24,8 @@ form {
 
 .jumbotron {
   text-align: center;
+}
+
+.clickable-row {
+  cursor: pointer;
 }

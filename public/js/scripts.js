@@ -10,5 +10,9 @@ $(document).ready(function() {
         $(this).parent().remove();
       })
     })
+
+    $('.clickable-row').on('click', function(e) {
+      window.location = $(this).data('href');
+    })
     
 })

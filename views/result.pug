@@ -9,11 +9,11 @@ block content
     .col-sm-6.graphs
       canvas(id="chart" width="350" height="350")
     .col-sm-6.results
-      h4(style="margin-bottom: 20px;") Results
+      h4(style="margin-bottom: 20px;"): b Results
       - let total = 0
-      each choice in pollParsed.choices
+      each choice, index in pollParsed.choices
         p #{choice.text}: 
-          b #{choice.votes.length}
+          span: b #{choice.votes.length}
           - total += choice.votes.length
       p(style="margin-top: 20px;") Total votes: 
         b #{total}

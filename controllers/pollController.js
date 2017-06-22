@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const moment = require('moment');
 const User = require('../models/User');
 const Poll = require('../models/Poll');
 
@@ -46,12 +47,12 @@ exports.showPoll = async (req, res, next) => {
 exports.showAll = async (req, res, next) => {
   const polls = await Poll.find();
   res.locals.polls = polls;
-  res.render('all', {polls});
+  res.render('all', {polls, moment});
 }
 
 exports.showUserPolls = async (req, res, next) => {
   const polls = await Poll.find({author: req.params.user})
-  res.render('userHome', {polls});
+  res.render('userHome', {polls, moment});
 }
 
 exports.vote = async (req, res, next) => {

@@ -11,6 +11,7 @@ html
     link(rel="stylesheet", href="/css/style.css")
     script(rel="text/javascript", src="/js/scripts.js")
     block scripts
+      link(href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css", rel="stylesheet", integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN", crossorigin="anonymous")
 
   body
     block header
@@ -71,3 +72,7 @@ html
               a.btn.btn-success(href="/register") Register
               span 
               a.btn.btn-primary(href="/login") Login
+        footer.footer
+          p(style="margin-bottom: 0;") Made by Aos
+          a(href="https://twitter.com/onlyone_Aos"): <i style="font-size: 20px;" class="fa fa-twitter"></i>
+          a.github(href="https://github.com/aosdab"): <i style="font-size: 20px;" class="fa fa-github"></i>

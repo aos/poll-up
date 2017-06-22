@@ -29,3 +29,18 @@ form {
 .clickable-row {
   cursor: pointer;
 }
+
+/* 
+  ==========
+  Footer
+  ==========
+*/
+
+.fa-twitter {
+  color: #4099FF;
+}
+
+.fa-github {
+  text-decoration: none;
+  color: #000;
+}

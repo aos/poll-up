@@ -45,13 +45,13 @@ exports.showPoll = async (req, res, next) => {
 }
 
 exports.showAll = async (req, res, next) => {
-  const polls = await Poll.find();
+  const polls = await Poll.find().sort({date: -1});
   res.locals.polls = polls;
   res.render('all', {polls, moment});
 }
 
 exports.showUserPolls = async (req, res, next) => {
-  const polls = await Poll.find({author: req.params.user})
+  const polls = await Poll.find({author: req.params.user}).sort({date: -1});
   res.render('userHome', {polls, moment});
 }
 

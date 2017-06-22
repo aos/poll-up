@@ -1,19 +1,17 @@
 extends layout
 
 block content
-  h3 Hello #{user.name}!
-  br
-  if polls.length === 0
-    p There are no polls!
-  else
-    h5 Your polls: 
-    table.table.table-hover.table-condensed
-      thead
-        th Poll
-        th Date
-      tbody
-        each poll in polls
-          - let date = moment(poll.date).fromNow()
-          tr.clickable-row(data-href=`/poll/${poll._id}`)
-            td(style='color: #337ab7') #{poll.question}
-            td Posted: #{date}
+  .container
+    h3 Hello #{user.name}!
+    hr
+    if polls.length === 0
+      p There are no polls!
+    else
+      h5 Your polls: 
+      table.table.table-hover.table-condensed
+        tbody
+          each poll in polls
+            - let date = moment(poll.date).fromNow()
+            tr.clickable-row(data-href=`/poll/${poll._id}`)
+              td(style='color: #337ab7') #{poll.question}
+              td Posted: #{date}

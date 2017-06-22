@@ -4,6 +4,8 @@ include mixins/_loginForm
 include mixins/_forgotForm
 
 block content
+  .container.login-form
     h3= title
+    hr
     +loginForm()
     +forgotForm()

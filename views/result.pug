@@ -4,72 +4,75 @@ block scripts
   script(src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js" rel="text/javascript")
 
 block content
-  - let pollParsed = JSON.parse(poll)
-  .row.graph-container
-    .col-sm-6.graphs
-      canvas(id="chart" width="350" height="350")
-    .col-sm-6.results
-      h4(style="margin-bottom: 20px;"): b Results
-      - let total = 0
-      each choice, index in pollParsed.choices
-        p #{choice.text}: 
-          span: b #{choice.votes.length}
-          - total += choice.votes.length
-      p(style="margin-top: 20px;") Total votes: 
-        b #{total}
-  script.
-    $(window).on('load', function() {
-      const poll = !{poll};
-      const backgroundColors = (n) => {
-        const randomColors = () => {
-          let r = Math.floor(Math.random() * 256);
-          let g = Math.floor(Math.random() * 256);
-          let b = Math.floor(Math.random() * 256);
-          let string = `rgb(${r}, ${g}, ${b})`;
-          return string;
-        };
-        let array = [];
-        for (let i = 0; i < n; i++) {
-          array.push(randomColors());
-        };
-        return array;
-      }
-      const labelMaker = (choices) => {
-        let labels = choices.map((o) => o.text);
-        return labels;
-      }
-      const dataMaker = (choices) => {
-        let dataArr = [];
-        choices.forEach((o) => {
-          dataArr.push(o.votes.length);
-          })
-          return dataArr;
-      }
-      const ctx = document.getElementById('chart').getContext('2d');
-      const chart = new Chart(ctx, {
-        // The type of chart we want to create
-        type: 'pie',
-        // The data for our dataset
-        data: {
-            labels: labelMaker(poll.choices),
-            datasets: [{
-              backgroundColor: backgroundColors(poll.choices.length),
-              borderColor: 'rgba(0, 0, 0, 0.5)',
-              data: dataMaker(poll.choices),
-            }]
-        },
-        // Configuration options go here
-        options: {
-          title: {
-            display: true,
-            fontSize: 20,
-            fontColor: '#333',
-            text: poll.question
-          },
-          responsive: false,
-          legend: {
-            position: 'bottom',
-          }
+  .container.result-container
+    - let pollParsed = JSON.parse(poll)
+    .row.graph-container
+      .col-sm-6.graphs
+        canvas(id="chart" width="350" height="350")
+      .col-sm-6.results
+        h4: b Results
+        hr
+        - let total = 0
+        each choice, index in pollParsed.choices
+          p #{choice.text}: 
+            span: b #{choice.votes.length}
+            - total += choice.votes.length
+        hr
+        p(style="margin-top: 20px;") Total votes: 
+          b #{total}
+    script.
+      $(window).on('load', function() {
+        const poll = !{poll};
+        const backgroundColors = (n) => {
+          const randomColors = () => {
+            let r = Math.floor(Math.random() * 256);
+            let g = Math.floor(Math.random() * 256);
+            let b = Math.floor(Math.random() * 256);
+            let string = `rgb(${r}, ${g}, ${b})`;
+            return string;
+          };
+          let array = [];
+          for (let i = 0; i < n; i++) {
+            array.push(randomColors());
+          };
+          return array;
         }
+        const labelMaker = (choices) => {
+          let labels = choices.map((o) => o.text);
+          return labels;
+        }
+        const dataMaker = (choices) => {
+          let dataArr = [];
+          choices.forEach((o) => {
+            dataArr.push(o.votes.length);
+            })
+            return dataArr;
+        }
+        const ctx = document.getElementById('chart').getContext('2d');
+        const chart = new Chart(ctx, {
+          // The type of chart we want to create
+          type: 'pie',
+          // The data for our dataset
+          data: {
+              labels: labelMaker(poll.choices),
+              datasets: [{
+                backgroundColor: backgroundColors(poll.choices.length),
+                borderColor: 'rgba(0, 0, 0, 0.5)',
+                data: dataMaker(poll.choices),
+              }]
+          },
+          // Configuration options go here
+          options: {
+            title: {
+              display: true,
+              fontSize: 20,
+              fontColor: '#333',
+              text: poll.question
+            },
+            responsive: false,
+            legend: {
+              position: 'bottom',
+            }
+          }
+        });
       });
-    });

@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const moment = require('moment');
 const User = require('../models/User');
 const Poll = require('../models/Poll');
+const helpers = require('../helpers');
 
 exports.newPoll = (req, res) => {
   if (req.user) {
@@ -28,7 +29,7 @@ exports.createPoll = async (req, res, next) => {
   })
   await poll.save();
   const pollURL = `${req.protocol}://${req.hostname}/poll/${poll._id}`
-  req.flash('success', `Your poll was created! Link: ${pollURL}`);
+  req.flash('success', `Your poll was created! Use <a href=${pollURL} class="alert-link">this link</a> to share your poll.`);
   res.redirect(`/poll/${poll._id}`)
 }
 
@@ -58,7 +59,7 @@ exports.showUserPolls = async (req, res, next) => {
 exports.vote = async (req, res, next) => {
   // Pull choice
   let choice = req.body.optionsRadios;
-  const userVotedPromise = Poll.findOne({_id: req.params.id, 'choices.votes.ip': req.ip });
+  const userVotedPromise = Poll.findOne({_id: req.params.id, 'choices.votes.ip': helpers.getIP(req) });
   const pollPromise = Poll.findOne({_id: req.params.id});
   const [userVoted, poll] = await Promise.all([userVotedPromise, pollPromise]);
 

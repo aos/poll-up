@@ -1,6 +1,11 @@
-form {
+/*form {
   min-width: 300px;
   width: 40%;
+}*/
+
+body {
+  margin: 0;
+  padding: 0;
 }
 
 .navbar {
@@ -28,6 +33,25 @@ form {
 
 .clickable-row {
   cursor: pointer;
+}
+
+.center-block {
+  width: 400px;
+}
+
+.login-form {
+  min-width: 300px;
+  width: 40%;
+}
+
+.all-polls {
+  min-width: 600px;
+  width: 80%;
+}
+
+.result-container {
+  min-width: 600px;
+  width: 80%;
 }
 
 /* 

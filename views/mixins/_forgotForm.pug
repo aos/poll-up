@@ -1,7 +1,7 @@
 mixin forgotForm()
-  form(action="/login" method="POST")
+  form(action="/account/forgot" method="POST")
     .form-group
       h4(style="margin-top: 30px;") Forgot password?
       label(for="email") Email Address
-      input.form-control(type="email" name="email" placeholder="Currently disabled..." disabled)
-    input.btn.btn-default(type="button" value="Reset Password" disabled)
+      input.form-control(type="email" name="email")
+    input.btn.btn-success(type="submit" value="Reset Password")

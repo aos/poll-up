@@ -9,6 +9,10 @@ router.get('/', (req, res) => {
   res.render('layout');
 })
 
+/**
+ * User Controllers
+**/
+
 // Register a user
 router.get('/register', userController.registerForm);
 router.post('/register', 
@@ -24,13 +28,29 @@ router.post('/login', authController.login);
 // Logout a user
 router.get('/logout', authController.logout);
 
+// Password reset
+router.post('/account/forgot', catchErrors(authController.forgot));
+router.get('/account/reset/:token', 
+  catchErrors(authController.reset));
+router.post('/account/reset/:token',
+  authController.confirmPasswords,
+  catchErrors(authController.update)
+);
+
 // User homepage
 router.get('/user/:user', 
+  authController.isLoggedIn,
   catchErrors(pollController.showUserPolls)
 );
 
+/**
+ * Poll Controllers
+**/
+
 // Create a new poll
-router.get('/new', pollController.newPoll);
+router.get('/new', 
+  authController.isLoggedIn,
+  pollController.newPoll);
 router.post('/new', 
   catchErrors(pollController.createPoll), 
   catchErrors(pollController.showPoll)

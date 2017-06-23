@@ -2,7 +2,11 @@
 
 A user-based online simple poll generator.
 
-This project is currently under construction.
+### Features:
+* Register to create polls
+* Login to view your polls
+* Non-authenticated users can view/vote on polls
+* All created polls can be seen
 
 #### TODO:
 - [x] User authentication (register, login)
@@ -10,6 +14,7 @@ This project is currently under construction.
 - [x] Display polls to users
 - [x] Vote on polls -- (IP-restricted)
 - [x] Graph poll results
-- [ ] Password reset (email or token-based?)
-- [ ] Homepage
-- [ ] Clean up layout
+- [x] Password reset (token-based)
+- [x] Clean up layout
+- [ ] Private polls
+- [ ] Multiple selections

@@ -28,7 +28,7 @@ exports.createPoll = async (req, res, next) => {
     }
   })
   await poll.save();
-  const pollURL = `${req.protocol}://${req.hostname}/poll/${poll._id}`
+  const pollURL = `${req.protocol}://${req.headers.host}/poll/${poll._id}`
   req.flash('success', `Your poll was created! Use <a href=${pollURL} class="alert-link">this link</a> to share your poll.`);
   res.redirect(`/poll/${poll._id}`)
 }

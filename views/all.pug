@@ -12,6 +12,6 @@ block content
               - let date = moment(poll.date).fromNow()
               tr.clickable-row(data-href=`/poll/${poll._id}`)
                 td(style='color: #337ab7') #{poll.question}
-                td Posted: #{date}
+                td Posted by <b>#{poll.author}</b> #{date}
             else
               p There are no polls!

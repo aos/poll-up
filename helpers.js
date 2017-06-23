@@ -9,5 +9,10 @@ exports.mapWith = (choices, fn) => choices.map(fn);
 // Get IP address
 exports.getIP = (req) => {
   let forwardedFor = req.header('X-Forwarded-For');
-  return forwardedFor.split(',').shift();
+  if (forwardedFor) {
+    return forwardedFor.split(',').shift();
+  }
+  else {
+    return req.connection.remoteAddress;
+  }
 }

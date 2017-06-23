@@ -36,6 +36,11 @@ router.post('/new',
   catchErrors(pollController.showPoll)
 );
 
+// Delete a poll
+router.get('/poll/:id/delete', 
+  catchErrors(pollController.delete),
+  catchErrors(pollController.showUserPolls));
+
 // View/vote on poll
 router.get('/poll/:id', catchErrors(pollController.showPoll));
 router.post('/poll/:id/vote', 

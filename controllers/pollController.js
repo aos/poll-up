@@ -34,7 +34,7 @@ exports.createPoll = async (req, res, next) => {
 }
 
 exports.showPoll = async (req, res, next) => {
-  const userVotedPromise = Poll.findOne({_id: req.params.id, 'choices.votes.ip': req.ip });
+  const userVotedPromise = Poll.findOne({_id: req.params.id, 'choices.votes.ip': helpers.getIP(req) });
   const pollPromise = Poll.findOne({_id: req.params.id});
   const [poll, userVoted] = await Promise.all([pollPromise, userVotedPromise]);
 
@@ -70,7 +70,7 @@ exports.vote = async (req, res, next) => {
     return next();
   }
   // Cast vote
-  poll.choices[choice].votes.push({ip: req.ip});
+  poll.choices[choice].votes.push({ip: helpers.getIP(req)});
   await poll.save();
   req.flash('success', 'Thanks for voting!');
   return next();
@@ -83,4 +83,11 @@ exports.showResult = async (req, res, next) => {
   }
   let poll = await Poll.findOne({_id: req.params.id});
   return res.render('result', {poll: JSON.stringify(poll), flashes: req.flash()});
+}
+
+exports.delete = async (req, res, next) => {
+  let deleted = await Poll.deleteOne({_id: req.params.id});
+  let user = req.user.name;
+  req.flash('success', 'Deleted poll.');
+  res.redirect(`/user/${user}`);
 }

@@ -1,7 +1,7 @@
 extends layout
 
 block content
-  .container
+  .container.result-container
     h3 Hello #{user.name}!
     hr
     if polls.length === 0
@@ -12,6 +12,8 @@ block content
         tbody
           each poll in polls
             - let date = moment(poll.date).fromNow()
-            tr.clickable-row(data-href=`/poll/${poll._id}`)
-              td(style='color: #337ab7') #{poll.question}
+            tr
+              td(style='color: #337ab7'): a(href=`/poll/${poll._id}`) #{poll.question}
               td Posted: #{date}
+              td: a.btn.btn-xs.btn-danger(href=`/poll/${poll._id}/delete`): b X
+              //-.clickable-row(data-href=`/poll/${poll._id}`)

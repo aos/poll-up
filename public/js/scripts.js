@@ -3,7 +3,7 @@ $(document).ready(function() {
   let $add_button = $('.add-option');
 
   $add_button.click(function(event) {
-      $(`<div class="input-group"><input class="form-control poll-form-input" type="text" name="options" placeholder="Enter poll option"><span class="input-group-btn"><button class="btn btn-danger" type="button">—</button></span></div>`).insertBefore($add_button);
+      $(`<div class="input-group"><input class="form-control poll-form-input" type="text" name="options" placeholder="Enter poll option"><span class="input-group-btn"><button class="btn btn-danger" type="button"><b>X</b></button></span></div>`).insertBefore($add_button);
 
       // Limit options to 5
       if ($('input').length > 7) {

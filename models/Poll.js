@@ -2,7 +2,13 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 // Schema for each voter
-const voterSchema = new Schema({ ip: String })
+const voterSchema = new Schema({
+  ip: String,
+  date: {
+    type: Date,
+    default: Date.now
+  }
+});
 
 // Schema for each poll choice
 const ChoiceSchema = new Schema({

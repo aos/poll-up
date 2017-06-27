@@ -13,7 +13,7 @@ block content
         h4: b Results
         hr
         - let total = 0
-        each choice, index in pollParsed.choices
+        each choice in pollParsed.choices
           p #{choice.text}: 
             span: b #{choice.votes.length}
             - total += choice.votes.length
@@ -45,8 +45,8 @@ block content
           let dataArr = [];
           choices.forEach((o) => {
             dataArr.push(o.votes.length);
-            })
-            return dataArr;
+          });
+          return dataArr;
         }
         const ctx = document.getElementById('chart').getContext('2d');
         const chart = new Chart(ctx, {

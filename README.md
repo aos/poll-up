@@ -14,6 +14,11 @@ Back-end: Node.js (express), MongoDB
 
 #### Sample poll: [What do you have for breakfast?](http://poll-up.herokuapp.com/poll/59a5789e279f6d0011de0088)
 
+<p float="left">
+  <img src="https://imgur.com/BjPXSZF.png" alt="Poll" data-canonical-src="https://imgur.com/BjPXSZF.png" width="400"/>
+  <img src="https://imgur.com/wBEXAWt.png" alt="Results" data-canonical-src="https://imgur.com/wBEXAWt.png" width="400"/>
+</p>
+
 ## Installation (local)
 
 Install using terminal, or optionally download from link above:
